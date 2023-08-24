@@ -1,2 +1,1 @@
-# Kubernetes
-Set up commands for K8s cluster
+This is the repository to start your k8s journey
