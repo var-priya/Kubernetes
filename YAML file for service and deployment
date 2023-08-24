@@ -1,0 +1,58 @@
+----------------
+YAML FILE FOR POD
+-----------------
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+spec:
+  containers:
+  - name: nginx
+    image: nginx:1.14.2
+    ports:
+    - containerPort: 80
+
+-------------------
+YAML FOR DEPLOYMENT 
+-------------------
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: django-todo-deployment
+  labels:
+    app: django-todo
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: django-todo
+  template:
+    metadata:
+      labels:
+        app: django-todo
+    spec:
+      containers:
+      - name: django-todo
+        image: varpriya/django-todo-app-cicd:latest
+        ports:
+        - containerPort: 8000
+
+---------------------
+YAML FILE FOR SERVICE
+---------------------
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: django-todo-service
+  namespace: django-todo-ns
+spec:
+  selector:
+    app.kubernetes.io/name: django-todo
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8000
+      nodeport: 30007
