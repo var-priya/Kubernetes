@@ -33,3 +33,39 @@ sudo su
 kubeadm reset pre-flight checks
 kubeadm join 172.31.41.95:6443 --token c2iaqz.ljkw7dyhqr18tsea     --discovery-token-ca-cert-hash sha256:daed8366958a28a1db3112ac0e5ca6f97b0a4ee67224de6374b1c2b16f11054e --v=5
 docker ps
+
+--------------
+MASTER NODE
+-------------
+
+kubectl get pods -n=default
+kubectl create namespace django-todo-ns
+ls
+kubectl get ns
+mkdir deploy-k8s
+ls
+cd deploy-k8s
+vim pod.yml
+--------------------
+POD YML FILE 
+--------------------
+kubectl apply -f pod.yml
+ls
+kubectl get pods -n=django-todo-ns
+kubectl apply -f pod.yml
+
+vim deployment.yml
+----------------------------
+DEPLOYMENT YML FILE
+----------------------------
+kubectl apply -f deployment.yml
+kubectl get pods -n=django-todo-ns
+watch kubectl get pods -n=django-todo-ns
+kubectl get pods -o wide -n=django-todo-ns
+
+vim service.yml
+-------------------
+SERVICE YML FILE
+-------------------
+kubectl apply -f service.yml
+kubectl get service -n django-todo-ns
